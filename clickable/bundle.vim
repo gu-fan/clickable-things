@@ -30,9 +30,16 @@ fun! s:init()
         " get the .vim or .oh-my-vim path
         let path1 = expand('~/.vim/bundle/') . str
         let path2 = expand('~/.oh-my-vim/bundle/') . str
+        if exists("g:bundle_directory")
+            let path3 = expand(g:bundle_directory) . str
+            let paths = [path1, path2, path3]
+        else
+            let paths = [path1, path2]
+        endif
 
         let self.full_path = path1
-        for p in [path1, path2]
+
+        for p in paths
             if isdirectory(p)
                 let self.full_path = p
                 break
